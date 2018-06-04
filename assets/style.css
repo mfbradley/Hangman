@@ -1,0 +1,15 @@
+.nav {
+    font-family: 'Shadows Into Light', cursive;
+    /* font-family: 'Open Sans Condensed', sans-serif; */
+    font-size: 60px;
+}
+
+.wordBlanks {
+    text-align: center;
+    background-color: lightblue;
+}
+
+.gameDiv {
+    text-align: center;
+    background-color: lightseagreen;
+}
