@@ -4,9 +4,11 @@
     font-size: 60px;
 }
 
-.wordBlanks {
+.wordBlanksHere {
     text-align: center;
     background-color: lightblue;
+    padding: 30px;
+    font-size: 40px;
 }
 
 .gameDiv {
