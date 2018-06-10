@@ -19,13 +19,14 @@
 </head>
 
 <body>
-    <nav class="nav justify-content-center">
-        <li class="nav-item">
-            <p class="nav-link active" href="#">Welcome to Hangman!</p>
-        </li>
-    </nav>
-
     <div class="container">
+        <nav class="nav justify-content-center">
+            <li class="nav-item">
+                <p class="nav-link active" href="#">Welcome to Hangman!</p>
+            </li>
+        </nav>
+
+
         <div class="row">
             <div class="col-md-12 wordBlanksHere">
 
@@ -33,9 +34,12 @@
         </div>
 
         <div class="row gameDiv">
-            <div class="col-md-6">
-                <p>Letters So Far</p>
+            <div class="col-md-6 letterDiv">
+                <p>Guessed Letters</p>
                 <div class="lettersGuessedDiv">
+                </div>
+                <p>Number of Guesses Remaining</p>
+                <div class="guessesRemaining">
                 </div>
             </div>
             <div class="col-md-6 buttons">
