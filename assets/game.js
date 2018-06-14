@@ -12,19 +12,23 @@ var lettersAndBlanks = [];
 var wordArray = ["grand canyon", "zion", "yellowstone", "yosemite"];
 var alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 
+// reset game - set guesses back to 10, empty arrays, and replace html text to reflect that
 function resetGame() {
     guessesRemaining = 10;
     lettersSoFar = [];
     wordBlanks = [];
     commas = [];
     lettersAndBlanks = [];
-
+    $(".lettersGuessedDiv").text("");
+    $(".guessesRemaining").text(guessesRemaining);
 }
 
+// used on document.ready to show guesses remaining when page loads
 function setGuessesRemaining() {
     $(".guessesRemaining").text(guessesRemaining);
 }
 
+// select random word to guess from wordArray and push blanks into wordBlanks array and replace text to show blanks
 function setRandomWord() {
     if (guessesRemaining === 10) {
         wordToGuess = wordArray[Math.floor(Math.random() * wordArray.length)];
@@ -38,9 +42,42 @@ function setRandomWord() {
     $(".wordBlanksHere").text(wordBlanks);
 }
 
+// if the user has not guessed the letter yet, push it to the lettersSoFar div and update DOM
+// if the user has already guessed that letter, notify them
+function updateLettersGuessed() {
+    if (lettersSoFar.indexOf(userGuess) < 0) {
+        guessesRemaining--;
+        $(".guessesRemaining").text(guessesRemaining);
+        lettersSoFar.push(userGuess);
+        $(".lettersGuessedDiv").text(lettersSoFar);
+    }
+
+    else {
+        alert("you already guessed that letter");
+    }
+}
+
+// compare userGuess with letters in the wordToGuess - set letters and blanks accordingly
+function checkAndShowLetter() {
+    for (var i = 0; i < wordBlanks.length; i++) {
+
+        if (userGuess != wordToGuess[i] && lettersAndBlanks[i] != wordToGuess[i]) {
+            lettersAndBlanks[i] = "_";
+        }
+        else if (userGuess === wordToGuess[i]) {
+            lettersAndBlanks[i] = wordToGuess[i];
+            console.log(lettersAndBlanks);
+        }
+    }
+
+    var noCommas = lettersAndBlanks.join(" ");
+    $(".wordBlanksHere").text(noCommas);
+}
+
+
 
 // LOGIC
-// create buttons
+// create buttons for each letter of the alphabet and append to R side of DOM
 for (var i = 0; i < alphabet.length; i++) {
     var button = $("<button type='button' class='btn btn-light' data-value='" + alphabet[i] + "'></button>");
     button.text(alphabet[i]);
@@ -54,11 +91,9 @@ for (var i = 0; i < alphabet.length; i++) {
     else if (i >= 9 && i < 15) {
         $(".buttonsDiv3").append(button);
     }
-
     else if (i >= 15 && i < 20) {
         $(".buttonsDiv4").append(button);
     }
-
     else {
         $(".buttonsDiv5").append(button);
     }
@@ -74,108 +109,37 @@ $(document).ready(function () {
 
     document.onkeyup = function (event) {
 
-        var userGuess = event.key.toLowerCase();
+        userGuess = event.key.toLowerCase();
 
         if (alphabet.includes(userGuess)) {
-            if (lettersSoFar.indexOf(userGuess) < 0) {
-                guessesRemaining--;
-                $(".guessesRemaining").text(guessesRemaining);
-                lettersSoFar.push(userGuess);
-                $(".lettersGuessedDiv").text(lettersSoFar);
-            }
-
-            else {
-                alert("you already guessed that letter");
-            }
+            
+            updateLettersGuessed();
 
             if (guessesRemaining === 0) {
-                lettersSoFar = [];
-                $(".lettersGuessedDiv").text("");
-                guessesRemaining = 10;
-                $(".guessesRemaining").text(guessesRemaining);
-                lettersAndBlanks = [];
-                wordBlanks = [];
+                resetGame();
             }
 
-
-
-
-            for (var i = 0; i < wordBlanks.length; i++) {
-
-                if (userGuess != wordToGuess[i] && lettersAndBlanks[i] != wordToGuess[i]) {
-                    lettersAndBlanks[i] = "_";
-                }
-
-                else if (userGuess === wordToGuess[i]) {
-                    lettersAndBlanks[i] = wordToGuess[i];
-                    console.log(lettersAndBlanks);
-                }
-
-
-            }
-
-            var noCommas = lettersAndBlanks.join(" ");
-            $(".wordBlanksHere").text(noCommas);
+            checkAndShowLetter();
 
             if (lettersAndBlanks.indexOf("_") < 0) {
-                guessesRemaining = 10;
-                $(".guessesRemaining").text(guessesRemaining);
-                lettersSoFar = [];
-                $(".lettersGuessedDiv").text(lettersSoFar);
-                wordBlanks = [];
-                commas = [];
-
-                lettersAndBlanks = [];
-                wordToGuess = wordArray[Math.floor(Math.random() * wordArray.length)];
-                for (var i = 0; i < wordToGuess.length; i++) {
-                    console.log(i)
-
-                    commas.push("_");
-
-
-                }
-                wordBlanks = commas.join(" ");
-                $(".wordBlanksHere").text(wordBlanks);
+                resetGame();
+                setRandomWord();
 
                 alert("you win!");
             }
-
-
-
-
-
         }
     }
 
     $(document).on("click", ".btn", function () {
         var letter = $(this).attr("data-value");
-        console.log(letter);
-
-        var userGuess = letter;
+        userGuess = letter;
 
         if (alphabet.includes(userGuess)) {
-            if (lettersSoFar.indexOf(userGuess) < 0) {
-                guessesRemaining--;
-                $(".guessesRemaining").text(guessesRemaining);
-                lettersSoFar.push(userGuess);
-                $(".lettersGuessedDiv").text(lettersSoFar);
-            }
-
-            else {
-                alert("you already guessed that letter");
-            }
+            updateLettersGuessed();
 
             if (guessesRemaining === 0) {
-                lettersSoFar = [];
-                $(".lettersGuessedDiv").text("");
-                guessesRemaining = 10;
-                $(".guessesRemaining").text(guessesRemaining);
-                lettersAndBlanks = [];
-                wordBlanks = [];
+                resetGame();
             }
-
-
-
 
             for (var i = 0; i < wordBlanks.length; i++) {
 
