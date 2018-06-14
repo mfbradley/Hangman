@@ -9,7 +9,7 @@ var lettersSoFar = [];
 var wordBlanks = [];
 var commas = [];
 var lettersAndBlanks = [];
-var wordArray = ["grand canyon", "zion", "yellowstone", "yosemite"];
+var wordArray = ["glacier", "zion", "yellowstone", "yosemite", "olympic", "redwood", "sequoia", "canyonlands", "badlands"];
 var alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 
 // reset game - set guesses back to 10, empty arrays, and replace html text to reflect that
@@ -105,14 +105,15 @@ $(document).ready(function () {
     setGuessesRemaining();
     setRandomWord();
 
-
-
+    if (wordToGuess === "glacier") {
+        
+    }
     document.onkeyup = function (event) {
 
         userGuess = event.key.toLowerCase();
 
         if (alphabet.includes(userGuess)) {
-            
+
             updateLettersGuessed();
 
             if (guessesRemaining === 0) {
@@ -124,7 +125,6 @@ $(document).ready(function () {
             if (lettersAndBlanks.indexOf("_") < 0) {
                 resetGame();
                 setRandomWord();
-
                 alert("you win!");
             }
         }
@@ -141,55 +141,15 @@ $(document).ready(function () {
                 resetGame();
             }
 
-            for (var i = 0; i < wordBlanks.length; i++) {
-
-                if (userGuess != wordToGuess[i] && lettersAndBlanks[i] != wordToGuess[i]) {
-                    lettersAndBlanks[i] = "_";
-                }
-
-                else if (userGuess === wordToGuess[i]) {
-                    lettersAndBlanks[i] = wordToGuess[i];
-                    console.log(lettersAndBlanks);
-                }
-
-
-            }
-
-            var noCommas = lettersAndBlanks.join(" ");
-            $(".wordBlanksHere").text(noCommas);
+            checkAndShowLetter();
 
             if (lettersAndBlanks.indexOf("_") < 0) {
-                guessesRemaining = 10;
-                $(".guessesRemaining").text(guessesRemaining);
-                lettersSoFar = [];
-                $(".lettersGuessedDiv").text(lettersSoFar);
-                wordBlanks = [];
-                commas = [];
-
-                lettersAndBlanks = [];
-                wordToGuess = wordArray[Math.floor(Math.random() * wordArray.length)];
-                for (var i = 0; i < wordToGuess.length; i++) {
-                    console.log(i)
-
-                    commas.push("_");
-
-
-                }
-                wordBlanks = commas.join(" ");
-                $(".wordBlanksHere").text(wordBlanks);
+                resetGame();
+                setRandomWord();
 
                 alert("you win!");
             }
-
-
-
-
-
         }
-
     });
-
 });
 
-// if all letters are full user wins
-// if word to guess matches the letters and blanks array user wins
