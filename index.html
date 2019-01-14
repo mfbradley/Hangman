@@ -10,22 +10,21 @@
     <!-- Bootstrap Stylesheet -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
         crossorigin="anonymous">
-
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Shadows+Into+Light" rel="stylesheet">
 
     <!-- style.css -->
-    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body>
     <div class="container">
-        <nav class="nav justify-content-center">
-            <li class="nav-item">
-                <p class="nav-link active" href="#">Welcome to Hangman!</p>
-            </li>
-        </nav>
-
+        <div class="row">
+            <div class="col-md-12 text-center mt-5">
+                <h2 class="display-4">National Park Hangman</h2>
+                <p class="lead">Press a letter or click a button to play!</p>
+            </div>
+        </div>
 
         <div class="row">
             <div class="col-md-12 wordBlanksHere">
@@ -33,7 +32,7 @@
             </div>
         </div>
 
-        <div class="row gameDiv">
+        <div class="row gameDiv text-center">
             <div class="col-md-6 letterDiv">
                 <p>Guessed Letters</p>
                 <div class="lettersGuessedDiv">
@@ -78,7 +77,7 @@
         crossorigin="anonymous"></script>
 
     <!-- game.js -->
-    <script type="text/javascript" src="assets/game.js"></script>
+    <script type="text/javascript" src="assets/javascript/game.js"></script>
 </body>
 
 </html>

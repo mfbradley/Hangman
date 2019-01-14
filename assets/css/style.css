@@ -1,34 +1,36 @@
 body {
-    background-image: url("bkg.jpg");
+    background-image: url("../images/lake.jpg");
     z-index: -100;
     font-family: 'Open Sans Condensed', sans-serif;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
 }
 
-
-.nav {
-    font-size: 60px;
-    margin-top: 40px;
+.container {
+    background-color: white;
+    opacity: .7;
 }
-
 .wordBlanksHere {
     text-align: center;   
-    font-size: 40px;
+    font-size: 20px;
   
 }
 
-.letterDiv {
+
+/* .letterDiv {
     font-size: 30px;
 }
 
 .lettersGuessedDiv {
     font-size: 25px;
-}
+} */
 
-.gameDiv {
+/* .gameDiv {
     text-align: center;
-    /* height: 300px; */
+    height: 300px;
     padding: 40px;
-}
+} */
 
 
 .wordBlanksHere {
