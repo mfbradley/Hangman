@@ -9,7 +9,7 @@ var lettersSoFar = [];
 var wordBlanks = [];
 var commas = [];
 var lettersAndBlanks = [];
-var wordArray = ["glacier", "zion", "yellowstone", "yosemite", "olympic", "redwood", "sequoia", "canyonlands", "badlands"];
+var wordArray = ["gla cier", "zio n", "yellow stone", "yose mite", "olym pic", "red wood", "seq uoia", "canyon lands", "ba dlands"];
 var alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 
 // reset game - set guesses back to 10, empty arrays, and replace html text to reflect that
@@ -35,10 +35,20 @@ function setRandomWord() {
         console.log(wordToGuess);
 
         for (var i = 0; i < wordToGuess.length; i++) {
-            commas.push("_");
+            console.log(wordToGuess[i])
+            if (wordToGuess[i] != " ") {
+                commas.push("_");
+
+            }
+            else {
+                commas.push(" ")
+                console.log("space")
+            }
         }
+        console.log("commas " + commas)
     }
-    wordBlanks = commas.join(" ");
+    wordBlanks = commas.join("");
+    console.log(wordBlanks)
     $(".wordBlanksHere").text(wordBlanks);
 }
 
@@ -47,7 +57,7 @@ function setRandomWord() {
 function updateLettersGuessed() {
     if (lettersSoFar.indexOf(userGuess) < 0) {
         guessesRemaining--;
-        $(".guessesRemaining").text(guessesRemaining);
+        setGuessesRemaining();
         lettersSoFar.push(userGuess);
         $(".lettersGuessedDiv").text(lettersSoFar);
     }
@@ -60,17 +70,22 @@ function updateLettersGuessed() {
 // compare userGuess with letters in the wordToGuess - set letters and blanks accordingly
 function checkAndShowLetter() {
     for (var i = 0; i < wordBlanks.length; i++) {
-
-        if (userGuess != wordToGuess[i] && lettersAndBlanks[i] != wordToGuess[i]) {
+        console.log(wordBlanks[i])
+        if (userGuess != wordToGuess[i] && lettersAndBlanks[i] != wordToGuess[i] && wordBlanks[i] != " ") {
             lettersAndBlanks[i] = "_";
         }
-        else if (userGuess === wordToGuess[i]) {
+        
+        else if (wordBlanks[i] === " ") {
+            lettersAndBlanks[i] = " ";
+        }
+        else {
             lettersAndBlanks[i] = wordToGuess[i];
             console.log(lettersAndBlanks);
         }
     }
+    console.log("l&b " + lettersAndBlanks)
 
-    var noCommas = lettersAndBlanks.join(" ");
+    var noCommas = lettersAndBlanks.join("");
     $(".wordBlanksHere").text(noCommas);
 }
 
@@ -106,7 +121,7 @@ $(document).ready(function () {
     setRandomWord();
 
     if (wordToGuess === "glacier") {
-        
+
     }
     document.onkeyup = function (event) {
 
